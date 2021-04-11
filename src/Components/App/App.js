@@ -3,10 +3,10 @@ import './App.css';
 function App() {
   return(
     <div>
-    <h1>Ja<span class="highlight">mmm</span>ing</h1>
-    <div class="App">
+    <h1>Ja<span className="highlight">mmm</span>ing</h1>
+    <div className="App">
       {/* <!-- Add a SearchBar component --> */}
-      <div class="App-playlist">
+      <div className="App-playlist">
         {/* <!-- Add a SearchResults component --> */}
         {/* <!-- Add a Playlist component --> */}
       </div> 
