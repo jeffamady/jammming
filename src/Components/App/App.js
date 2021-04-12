@@ -21,26 +21,73 @@ class App extends React.Component {
         {name: 'playlistName2', artist: 'playlistArtist2', album: 'playlistAlbum2', id: 6},
         {name: 'playlistName3', artist: 'playlistArtist3', album: 'playlistAlbum3', id: 7},
         {name: 'playlistName4', artist: 'playlistArtist4', album: 'playlistAlbum4', id: 8}
-    
+
       ]
 
-    }
+    };
+
+    this.addTrack = this.addTrack.bind(this);
+    this.removeTrack = this.removeTrack.bind(this);
+    this.updatePlaylistName =this.updatePlaylistName.bind(this);
+    this.savePlaylist =this.savePlaylist.bind(this);
+    this.search = this.search.bind(this);
+
   }
+
+  addTrack(track) {
+    let tracks = this.state.playlistTracks;
+    if(tracks.find(savedTrack => savedTrack.id === track.id)) {
+      return;
+    }
+
+    tracks.push(track);
+    this.setState({playlistTracks: tracks})
+  }
+
+  removeTrack(track) {
+    let tracks = this.state.playlistTracks;
+    tracks = tracks.filter(wiiDelete => wiiDelete.id !== track.id);
+
+    this.setState({playlistTracks: tracks});
+  }
+
+  updatePlaylistName(name) {
+    this.setState({playlistName: name});
+  }
+
+  savePlaylist() {
+    const trackURIs = this.state.playlistTracks.map(track => track.uri);
+  }
+
+  search(term) {
+    console.log(term);
+  }
+
   render() {
     return(
       <div>
       <h1>Ja<span className="highlight">mmm</span>ing</h1>
       <div className="App">
-        <SearchBar />
+        <SearchBar onSearch={this.search} />
         <div className="App-playlist">
-          <SearchResults searchResults={this.state.searchResults} />
-          <Playlist playlistName={this.state.playlistName} playlistTracks={this.state.playlistTracks} />
-        </div> 
+          <SearchResults
+            searchResults={this.state.searchResults}
+            onAdd={this.addTrack}
+          />
+          <Playlist
+              playlistName={this.state.playlistName}
+              playlistTracks={this.state.playlistTracks}
+              onRemove={this.removeTrack}
+              onNameChange={this.updatePlaylistName}
+              onSave={this.savePlaylist}
+
+          />
+        </div>
       </div>
     </div>
     )
   }
- 
+
 }
 
 export default App;
